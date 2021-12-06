@@ -1,14 +1,10 @@
-import { extendTheme } from "@chakra-ui/react";
-import { StepsStyleConfig as Steps } from "chakra-ui-steps";
-
-const config = {
-  initialColorMode: "dark",
-  useSystemColorMode: false,
-};
-
-export const theme = extendTheme({
-  config,
-  components: {
-    Steps,
-  },
-});
+import { ChakraProvider } from "@chakra-ui/react";
+import { theme } from "../theme";
+function MyApp({ Component, pageProps }) {
+  return (
+    <ChakraProvider theme={theme}>
+      <Component {...pageProps} />
+    </ChakraProvider>
+  );
+}
+export default MyApp;
