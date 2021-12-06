@@ -1,5 +1,14 @@
-import React from "react";
+import Layout from "../components/Layout";
+import Hero from "../components/Hero";
+import Features from "../components/Features";
 
 export default function Home() {
-  return <div>Hello World</div>;
+  return (
+    <Layout>
+      <main>
+        <Hero />
+        <Features />
+      </main>
+    </Layout>
+  );
 }

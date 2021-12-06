@@ -1,14 +1,17 @@
 {
   "name": "next-resume",
   "version": "1.0.0",
-  "description": "",
+  "description": "next js web application to build your resume",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Ediz Yurdakul",
+  "license": "MIT",
   "dependencies": {
     "@chakra-ui/react": "^1.7.2",
     "@emotion/react": "^11.7.0",
