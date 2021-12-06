@@ -5,10 +5,7 @@ export default function Features() {
   const Feature = (props) => {
     return (
       <Flex>
-        <Flex shrink={0}>
-          <Flex alignItems="center" justifyContent="center" h={12} w={12} rounded="md" color="white"></Flex>
-        </Flex>
-        <Box ml={4}>
+        <Box ml={{ base: 0, sm: 4, md: 4 }}>
           <chakra.dt fontSize="lg" fontWeight="medium" lineHeight="6" color={useColorModeValue("gray.900")}>
             {props.title}
           </chakra.dt>
