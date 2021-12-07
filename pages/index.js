@@ -4,9 +4,7 @@ import Features from "../components/Features";
 import { useDataLayerValue } from "../context/resumeContext";
 
 export default function Home() {
-  const [{ userName, userEmail, userJobTitle, userContactNumber }, dispatch] = useDataLayerValue();
-  console.log(userName);
-
+  const [{ userPersonalInfo, userWorkHistory }, dispatch] = useDataLayerValue();
   return (
     <Layout>
       <main>

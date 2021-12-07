@@ -17,7 +17,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { Step, Steps, useSteps } from "chakra-ui-steps";
-import { FormLayout, Personal, Summary } from "../components/Form";
+import { Personal, Summary } from "../components/Form";
 
 const steps = [
   { label: "Personal Info", formComponent: <Personal /> },
