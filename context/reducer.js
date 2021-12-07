@@ -47,7 +47,7 @@ export const initialState = {
 };
 
 export const actionTypes = {
-  setPersonalInfo: "setPersonalInfo",
+  setPersonalInfo: "setUserPersonalInfo",
   setUserSummary: "setUserSummary",
   setUserSkills: "setUserSkills",
   setUserWorkHistory: "setUserWorkHistory",
@@ -58,35 +58,10 @@ export const actionTypes = {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case actionTypes.setUserName:
+    case actionTypes.setPersonalInfo:
       return {
         ...state,
-        userName: action.userName,
-      };
-    case actionTypes.setUserEmail:
-      return {
-        ...state,
-        userEmail: action.userEmail,
-      };
-    case actionTypes.setUserJobTitle:
-      return {
-        ...state,
-        userJobTitle: action.userJobTitle,
-      };
-    case actionTypes.setUserContactNumber:
-      return {
-        ...state,
-        userContactNumber: action.userContactNumber,
-      };
-    case actionTypes.setUserLinkedIn:
-      return {
-        ...state,
-        userLinkedIn: action.userLinkedIn,
-      };
-    case actionTypes.setUserGitHub:
-      return {
-        ...state,
-        userGitHub: action.userGitHub,
+        userName: action.userPersonalInfo,
       };
     case actionTypes.setUserSummary:
       return {
@@ -102,6 +77,21 @@ const reducer = (state, action) => {
       return {
         ...state,
         userWorkHistory: action.userWorkHistory,
+      };
+    case actionTypes.setUserSkills:
+      return {
+        ...state,
+        userSkills: action.userSkills,
+      };
+    case actionTypes.setUserEducation:
+      return {
+        ...state,
+        userEducation: action.userEducation,
+      };
+    case actionTypes.setUserCertifications:
+      return {
+        ...state,
+        userCertifications: action.userCertifications,
       };
     default:
       return state;
