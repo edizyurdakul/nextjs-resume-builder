@@ -1,21 +1,59 @@
 export const initialState = {
-  userName: null,
-  userEmail: null,
-  userJobTitle: null,
-  userContactNumber: null,
-  userLinkedIn: null,
-  userGitHub: null,
+  userPersonalInfo: { name: "", email: "", jobTitle: "", contactNumber: "", linkedInUrl: "", gitHubUrl: "", languages: [] },
   userSummary: null,
+  userWorkHistory: [
+    /*{
+      company: "",
+      jobTitle: "",
+      companyWebsite: "",
+      employmentType: "",
+      isRemote: false,
+      country: "",
+      city: "",
+      technologies: "",
+      from: { month: "", year: "" },
+      to: { month: "", year: "" },
+      currentWork: false,
+      description: "",
+    },*/
+  ],
+  userSkills: [],
+  userEducation: [
+    /*
+    {
+      school: "",
+      degree: "",
+      fieldOfStudy: "",
+      grade: "",
+      country: "",
+      city: "",
+      from: { month: "", year: "" },
+      to: { month: "", year: "" },
+      description: "",
+    },*/
+  ],
+  userPersonalProjects: [
+    /*{
+      title: "",
+      technologies: "",
+      numberOfWorkers: "",
+      from: { month: "", year: "" },
+      to: { month: "", year: "" },
+      currentlyWork: false,
+      description: "",
+    },*/
+  ],
+  userCertifications: [{ title: "", issuer: "", issueDate: { month: "", year: "" } }],
 };
 
 export const actionTypes = {
-  setUserName: "setUserName",
-  setUserEmail: "setUserEmail",
-  setUserJobTitle: "setUserJobTitle",
-  setUserContactNumber: "setUserContactNumber",
-  setUserLinkedIn: "setUserLinkedIn",
-  setUserGitHub: "setUserGitHub",
+  setPersonalInfo: "setPersonalInfo",
   setUserSummary: "setUserSummary",
+  setUserSkills: "setUserSkills",
+  setUserWorkHistory: "setUserWorkHistory",
+  setUserEducation: "setUserEducation",
+  setUserPersonalProjects: "setUserPersonalProjects",
+  setUserCertifications: "setUserCertifications",
 };
 
 const reducer = (state, action) => {
@@ -54,6 +92,16 @@ const reducer = (state, action) => {
       return {
         ...state,
         userSummary: action.userSummary,
+      };
+    case actionTypes.setUserSkills:
+      return {
+        ...state,
+        userSkills: action.userSkills,
+      };
+    case actionTypes.setUserWorkHistory:
+      return {
+        ...state,
+        userWorkHistory: action.userWorkHistory,
       };
     default:
       return state;
