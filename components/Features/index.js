@@ -5,7 +5,7 @@ export default function Features() {
   const Feature = (props) => {
     return (
       <Flex>
-        <Box ml={{ base: 0, sm: 4, md: 4 }}>
+        <Box>
           <chakra.dt fontSize="lg" fontWeight="medium" lineHeight="6" color={useColorModeValue("gray.900")}>
             {props.title}
           </chakra.dt>
@@ -30,14 +30,13 @@ export default function Features() {
               color={useColorModeValue("gray.900")}
             >
               A{" "}
-              <Text display={{ base: "block", lg: "inline" }} w="full" color="purple.700" fontWeight="extrabold">
-                Better
+              <Text display={{ base: "inline", lg: "inline" }} w="full" color="purple.700" fontWeight="extrabold">
+                better
               </Text>{" "}
               way to create resumes
             </chakra.h2>
             <chakra.p mt={4} maxW="2xl" fontSize="xl" mx={{ lg: "auto" }} color={useColorModeValue("gray.500", "gray.400")}>
-              Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in accusamus
-              quisquam.
+              Completely free to use, create and download Clean ATS-friendly resume format to ensure you get seen by recruiters.
             </chakra.p>
           </Box>
 
