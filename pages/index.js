@@ -5,6 +5,7 @@ import { useDataLayerValue } from "../context/resumeContext";
 
 export default function Home() {
   const [{ userPersonalInfo, userWorkHistory }, dispatch] = useDataLayerValue();
+  console.log(userPersonalInfo);
   return (
     <Layout>
       <main>

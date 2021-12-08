@@ -1,4 +1,32 @@
 import { FormControl, FormLabel, Input, Textarea, Box, SimpleGrid, GridItem, Stack, chakra } from "@chakra-ui/react";
+import { useDataLayerValue } from "../../context/resumeContext";
+import { actionTypes } from "../../context/reducer";
+import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
+
+const styles = StyleSheet.create({
+  page: {
+    flexDirection: "row",
+    backgroundColor: "#E4E4E4",
+  },
+  section: {
+    margin: 10,
+    padding: 10,
+    flexGrow: 1,
+  },
+});
+
+const Resume = () => (
+  <Document>
+    <Page size="A4" style={styles.page}>
+      <View style={styles.section}>
+        <Text>Section #1</Text>
+      </View>
+      <View style={styles.section}>
+        <Text>Section #2</Text>
+      </View>
+    </Page>
+  </Document>
+);
 
 const FormLayout = ({ children }) => {
   return (
@@ -19,6 +47,57 @@ const FormLayout = ({ children }) => {
 };
 
 export const Personal = () => {
+  const [{ userPersonalInfo, userWorkHistory }, dispatch] = useDataLayerValue();
+  console.log(userPersonalInfo);
+  const updateContext = (obj) => {
+    dispatch({
+      type: actionTypes.setUserPersonalInfo,
+      userPersonalInfo: obj,
+    });
+  };
+
+  /* handlers i think this could be optimized better in the future*/
+  const handleName = (event) => {
+    let userPersonalObject = userPersonalInfo;
+    userPersonalObject.name = event.target.value;
+    updateContext(userPersonalObject);
+    console.log(userPersonalInfo);
+  };
+
+  const handleEmail = (event) => {
+    let userPersonalObject = userPersonalInfo;
+    userPersonalObject.email = event.target.value;
+    updateContext(userPersonalInfo);
+    console.log(userPersonalInfo);
+  };
+  const handleJobTitle = (event) => {
+    let userPersonalObject = userPersonalInfo;
+    userPersonalObject.jobTitle = event.target.value;
+    updateContext(userPersonalInfo);
+    console.log(userPersonalInfo);
+  };
+
+  const handleContact = (event) => {
+    let userPersonalObject = userPersonalInfo;
+    userPersonalObject.contactNumber = event.target.value;
+    updateContext(userPersonalInfo);
+    console.log(userPersonalInfo);
+  };
+
+  const handleLinkedIn = (event) => {
+    let userPersonalObject = userPersonalInfo;
+    userPersonalObject.linkedInUrl = event.target.value;
+    updateContext(userPersonalInfo);
+    console.log(userPersonalInfo);
+  };
+
+  const handleGitHub = (event) => {
+    let userPersonalObject = userPersonalInfo;
+    userPersonalObject.gitHubUrl = event.target.value;
+    updateContext(userPersonalInfo);
+    console.log(userPersonalInfo);
+  };
+
   return (
     <FormLayout>
       {/* Name */}
@@ -37,6 +116,7 @@ export const Personal = () => {
           size="sm"
           w="full"
           rounded="md"
+          onChange={handleName}
         />
       </FormControl>
       {/* Email Address */}
@@ -55,6 +135,7 @@ export const Personal = () => {
           size="sm"
           w="full"
           rounded="md"
+          onChange={handleEmail}
         />
       </FormControl>
       {/* Job Title */}
@@ -73,6 +154,7 @@ export const Personal = () => {
           size="sm"
           w="full"
           rounded="md"
+          onChange={handleJobTitle}
         />
       </FormControl>
       {/* Contact Number */}
@@ -91,6 +173,7 @@ export const Personal = () => {
           size="sm"
           w="full"
           rounded="md"
+          onChange={handleContact}
         />
       </FormControl>
       {/* LinkedIn */}
@@ -109,6 +192,7 @@ export const Personal = () => {
           size="sm"
           w="full"
           rounded="md"
+          onChange={handleLinkedIn}
         />
       </FormControl>
       {/* Github */}
@@ -127,6 +211,7 @@ export const Personal = () => {
           size="sm"
           w="full"
           rounded="md"
+          onChange={handleGitHub}
         />
       </FormControl>
     </FormLayout>

@@ -1,6 +1,15 @@
 export const initialState = {
-  userPersonalInfo: { name: "", email: "", jobTitle: "", contactNumber: "", linkedInUrl: "", gitHubUrl: "", languages: [] },
-  userSummary: null,
+  userPersonalInfo: {
+    name: "Ediz Yurdakul",
+    email: "edizyurdakul@gmail.com",
+    jobTitle: "Frontend Web Developer",
+    contactNumber: "05355254787",
+    linkedInUrl: "https://linkedin.com/edizyurdakul",
+    gitHubUrl: "https://github.com/edizyurdakul",
+    languages: [],
+  },
+  userSummary:
+    "Front-end developer with experience building successful digital products using modern technologies such as React, Next.JS, Gatsby.JS, and more. Proficient in a wide range of development and testing tools as well as version control tools. A continuous learner, keeping up with new technologies and changes to languages and frameworks such as React 17, Next. JS 12.",
   userWorkHistory: [
     /*{
       company: "",
@@ -47,7 +56,7 @@ export const initialState = {
 };
 
 export const actionTypes = {
-  setPersonalInfo: "setUserPersonalInfo",
+  setUserPersonalInfo: "setUserPersonalInfo",
   setUserSummary: "setUserSummary",
   setUserSkills: "setUserSkills",
   setUserWorkHistory: "setUserWorkHistory",

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import {
   Text,
@@ -18,6 +18,10 @@ import {
 } from "@chakra-ui/react";
 import { Step, Steps, useSteps } from "chakra-ui-steps";
 import { Personal, Summary } from "../components/Form";
+import { ResumeTemplate } from "../components/Resume";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import { useDataLayerValue } from "../context/resumeContext";
+import { PDFViewer } from "@react-pdf/renderer";
 
 const steps = [
   { label: "Personal Info", formComponent: <Personal /> },
@@ -30,6 +34,8 @@ const steps = [
 ];
 
 export default function resume() {
+  const [{ userPersonalInfo, userSummary }, dispatch] = useDataLayerValue();
+
   const toast = useToast();
   const [isOpen, setIsOpen] = React.useState(false);
   const onClose = () => setIsOpen(false);
@@ -37,6 +43,7 @@ export default function resume() {
   const { nextStep, prevStep, reset, activeStep, setStep } = useSteps({
     initialStep: 0,
   });
+
   return (
     <Layout>
       <Box as="main" py={24}>
@@ -100,7 +107,12 @@ export default function resume() {
                 cursor="pointer"
                 _hover={{ bgColor: "purple.500" }}
               >
-                Download PDF
+                <PDFDownloadLink
+                  document={<ResumeTemplate userPersonalInfo={userPersonalInfo} userSummary={userSummary} />}
+                  fileName="resume.pdf"
+                >
+                  {({ blob, url, loading, error }) => (loading ? "Loading document..." : "Download PDF")}
+                </PDFDownloadLink>
               </Button>
               <Button
                 mt={6}
