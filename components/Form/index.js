@@ -474,7 +474,9 @@ export const WorkHistory = () => {
           colorScheme="purple"
           focusBorderColor="purple.400"
           shadow="sm"
-          size="md"
+          size="sm"
+          fontSize="sm"
+          style={{ fontSize: "sm" }}
           w="full"
           rounded="md"
           onChange={handleCheckbox}
@@ -561,7 +563,7 @@ export const WorkHistory = () => {
           selectedItems={selectedItems}
           onSelectedItemsChange={(changes) => handleSelectedItemsChange(changes.selectedItems)}
           highlightItemBg="purple.500"
-          labelStyleProps={{ mb: "0px" }}
+          labelStyleProps={{ mb: "0px", fontSize: "sm" }}
           inputStyleProps={{ size: "sm", rounded: "md", shadow: "md", _focus: { borderColor: "purple.400" } }}
           toggleButtonStyleProps={{ size: "sm" }}
           tagStyleProps={{ mb: "2px!important", _focus: { borderColor: "purple.500", borderRadius: "sm" } }}
