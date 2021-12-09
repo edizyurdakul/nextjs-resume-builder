@@ -56,11 +56,12 @@ export const Personal = () => {
 
   function handleChange(event) {
     const value = event.target.value;
-    setPersonalInfo({ ...setPersonalInfo, [event.target.name]: value });
+    setPersonalInfo({ ...personalInfo, [event.target.name]: value });
   }
 
   useEffect(() => {
     updateContext(personalInfo);
+    console.log(personalInfo);
   }, [personalInfo]);
 
   return (
@@ -91,7 +92,7 @@ export const Personal = () => {
         </FormLabel>
         <Input
           type="text"
-          name="emailAddress"
+          name="email"
           id="email_address"
           autoComplete="email"
           mt={1}
@@ -184,6 +185,24 @@ export const Personal = () => {
 };
 
 export const Summary = () => {
+  const [{ userSummary }, dispatch] = useDataLayerValue();
+  const [summary, setSummary] = useState("");
+
+  const updateContext = (summary) => {
+    dispatch({
+      type: actionTypes.setUserPersonalInfo,
+      userSummary: summary,
+    });
+  };
+
+  function handleChange(event) {
+    const value = event.target.value;
+    setSummary(value);
+  }
+
+  useEffect(() => {
+    updateContext(summary);
+  }, [summary]);
   return (
     <FormLayout>
       <FormControl as={GridItem} colSpan={[6, 6]}>
@@ -200,6 +219,7 @@ export const Summary = () => {
           size="sm"
           w="full"
           rounded="md"
+          onChange={handleChange}
         />
       </FormControl>
     </FormLayout>
