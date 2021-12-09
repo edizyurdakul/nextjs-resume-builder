@@ -3,7 +3,7 @@ export const initialState = {
     name: "Ediz Yurdakul",
     email: "edizyurdakul@gmail.com",
     jobTitle: "Frontend Web Developer",
-    contactNumber: "05355254787",
+    contactNumber: "Currently Underdevelopment!",
     linkedInUrl: "https://linkedin.com/edizyurdakul",
     gitHubUrl: "https://github.com/edizyurdakul",
     languages: [],

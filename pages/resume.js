@@ -3,6 +3,7 @@ import Layout from "../components/Layout";
 import {
   Text,
   Box,
+  HStack,
   chakra,
   Flex,
   Center,
@@ -21,6 +22,7 @@ import { Personal, Summary, WorkHistory } from "../components/Form";
 import { ResumeTemplate } from "../components/Resume";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { useDataLayerValue } from "../context/resumeContext";
+import { CheckCircleIcon } from "@chakra-ui/icons";
 
 const steps = [
   { label: "Personal Info", formComponent: <Personal /> },
@@ -173,10 +175,21 @@ export default function resume() {
                 nextStep();
                 if (activeStep === steps.length - 1) {
                   toast({
-                    title: "Resume created.",
-                    description: "Your resume was sucessfully, you can download now!",
-                    status: "success",
-                    duration: 9000,
+                    position: "top",
+                    /*  title: "Resume created.",
+                    description: "Your resume was sucessfully, you can download now!",*/
+                    render: () => (
+                      <HStack rounded="md" color="White" p={3} bg="purple.500">
+                        <Box>
+                          <CheckCircleIcon mr={6} />
+                        </Box>
+                        <Box>
+                          <Text style={{ fontSize: "lg", fontWeight: "bold" }}> Resume created. </Text>
+                          <Text mr={6}>Your resume was sucessfully, you can download now</Text>
+                        </Box>
+                      </HStack>
+                    ),
+                    duration: 5000,
                     isClosable: true,
                   });
                 }
