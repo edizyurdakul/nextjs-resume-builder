@@ -11,6 +11,7 @@ export const initialState = {
   userSummary:
     "Front-end developer with experience building successful digital products using modern technologies such as React, Next.JS, Gatsby.JS, and more. Proficient in a wide range of development and testing tools as well as version control tools. A continuous learner, keeping up with new technologies and changes to languages and frameworks such as React 17, Next. JS 12.",
   userWorkHistory: [
+    {},
     /*{
       company: "",
       jobTitle: "",

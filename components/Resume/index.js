@@ -16,7 +16,7 @@ export const ResumeTemplate = ({ userPersonalInfo, userSummary }) => {
   });
   return (
     <Document>
-      <Page size="A4" style={{ fontSize: "10px", padding: "20px", fontFamily: "OpenSans" }}>
+      <Page size="A4" style={{ fontSize: "10px", padding: "30px", fontFamily: "OpenSans" }}>
         <View>
           <View>
             <Text style={{ textAlign: "center", fontSize: "14px", fontFamily: "OpenSans", fontWeight: "bold" }}>
@@ -45,7 +45,7 @@ export const ResumeTemplate = ({ userPersonalInfo, userSummary }) => {
           >
             Summary
           </Text>
-          <Canvas style={{ width: "100%", height: "0.5px", backgroundColor: "black", marginBottom: "2px" }}></Canvas>
+          <Canvas style={{ width: "100%", height: "0.5px", backgroundColor: "black", marginBottom: "4px" }}></Canvas>
           <Text style={{ fontSize: "9px" }}>{userSummary}</Text>
         </View>
       </Page>

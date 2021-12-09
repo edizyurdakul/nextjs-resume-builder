@@ -17,16 +17,15 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { Step, Steps, useSteps } from "chakra-ui-steps";
-import { Personal, Summary } from "../components/Form";
+import { Personal, Summary, WorkHistory } from "../components/Form";
 import { ResumeTemplate } from "../components/Resume";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { useDataLayerValue } from "../context/resumeContext";
-import { PDFViewer } from "@react-pdf/renderer";
 
 const steps = [
   { label: "Personal Info", formComponent: <Personal /> },
   { label: "Summary", formComponent: <Summary /> },
-  { label: "Work History" },
+  { label: "Work History", formComponent: <WorkHistory /> },
   { label: "Skills" },
   { label: "Education" },
   { label: "Personal Projects" },
