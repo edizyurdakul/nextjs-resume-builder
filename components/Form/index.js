@@ -37,6 +37,16 @@ const FormLayout = ({ children }) => {
 
 export const Personal = () => {
   const [{ userPersonalInfo }, dispatch] = useDataLayerValue();
+  const [personalInfo, setPersonalInfo] = useState({
+    name: "",
+    email: "",
+    jobTitle: "",
+    contactNumber: "",
+    linkedInUrl: "",
+    gitHubUrl: "",
+    languages: [],
+  });
+
   const updateContext = (obj) => {
     dispatch({
       type: actionTypes.setUserPersonalInfo,
@@ -44,47 +54,14 @@ export const Personal = () => {
     });
   };
 
-  /* handlers i think this could be optimized better in the future*/
-  const handleName = (event) => {
-    let userPersonalObject = userPersonalInfo;
-    userPersonalObject.name = event.target.value;
-    updateContext(userPersonalObject);
-    console.log(userPersonalInfo);
-  };
+  function handleChange(event) {
+    const value = event.target.value;
+    setPersonalInfo({ ...setPersonalInfo, [event.target.name]: value });
+  }
 
-  const handleEmail = (event) => {
-    let userPersonalObject = userPersonalInfo;
-    userPersonalObject.email = event.target.value;
-    updateContext(userPersonalInfo);
-    console.log(userPersonalInfo);
-  };
-  const handleJobTitle = (event) => {
-    let userPersonalObject = userPersonalInfo;
-    userPersonalObject.jobTitle = event.target.value;
-    updateContext(userPersonalInfo);
-    console.log(userPersonalInfo);
-  };
-
-  const handleContact = (event) => {
-    let userPersonalObject = userPersonalInfo;
-    userPersonalObject.contactNumber = event.target.value;
-    updateContext(userPersonalInfo);
-    console.log(userPersonalInfo);
-  };
-
-  const handleLinkedIn = (event) => {
-    let userPersonalObject = userPersonalInfo;
-    userPersonalObject.linkedInUrl = event.target.value;
-    updateContext(userPersonalInfo);
-    console.log(userPersonalInfo);
-  };
-
-  const handleGitHub = (event) => {
-    let userPersonalObject = userPersonalInfo;
-    userPersonalObject.gitHubUrl = event.target.value;
-    updateContext(userPersonalInfo);
-    console.log(userPersonalInfo);
-  };
+  useEffect(() => {
+    updateContext(personalInfo);
+  }, [personalInfo]);
 
   return (
     <FormLayout>
@@ -104,7 +81,7 @@ export const Personal = () => {
           size="sm"
           w="full"
           rounded="md"
-          onChange={handleName}
+          onChange={handleChange}
         />
       </FormControl>
       {/* Email Address */}
@@ -114,7 +91,7 @@ export const Personal = () => {
         </FormLabel>
         <Input
           type="text"
-          name="email_address"
+          name="emailAddress"
           id="email_address"
           autoComplete="email"
           mt={1}
@@ -123,7 +100,7 @@ export const Personal = () => {
           size="sm"
           w="full"
           rounded="md"
-          onChange={handleEmail}
+          onChange={handleChange}
         />
       </FormControl>
       {/* Job Title */}
@@ -133,7 +110,7 @@ export const Personal = () => {
         </FormLabel>
         <Input
           type="text"
-          name="job_title"
+          name="jobTitle"
           id="job_title"
           autoComplete="organization-title"
           mt={1}
@@ -142,7 +119,7 @@ export const Personal = () => {
           size="sm"
           w="full"
           rounded="md"
-          onChange={handleJobTitle}
+          onChange={handleChange}
         />
       </FormControl>
       {/* Contact Number */}
@@ -152,7 +129,7 @@ export const Personal = () => {
         </FormLabel>
         <Input
           type="number"
-          name="phone_number"
+          name="contactNumber"
           id="phone_number"
           autoComplete="tel"
           mt={1}
@@ -161,7 +138,7 @@ export const Personal = () => {
           size="sm"
           w="full"
           rounded="md"
-          onChange={handleContact}
+          onChange={handleChange}
         />
       </FormControl>
       {/* LinkedIn */}
@@ -171,7 +148,7 @@ export const Personal = () => {
         </FormLabel>
         <Input
           type="url"
-          name="linkedin"
+          name="linkedInUrl"
           id="linkedin"
           autoComplete="url"
           mt={1}
@@ -180,7 +157,7 @@ export const Personal = () => {
           size="sm"
           w="full"
           rounded="md"
-          onChange={handleLinkedIn}
+          onChange={handleChange}
         />
       </FormControl>
       {/* Github */}
@@ -190,7 +167,7 @@ export const Personal = () => {
         </FormLabel>
         <Input
           type="url"
-          name="github"
+          name="gitHubUrl"
           id="github"
           autoComplete="url"
           mt={1}
@@ -199,7 +176,7 @@ export const Personal = () => {
           size="sm"
           w="full"
           rounded="md"
-          onChange={handleGitHub}
+          onChange={handleChange}
         />
       </FormControl>
     </FormLayout>
