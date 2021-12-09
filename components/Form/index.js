@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { useDataLayerValue } from "../../context/resumeContext";
 import { actionTypes } from "../../context/reducer";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CUIAutoComplete } from "chakra-ui-autocomplete";
 import { CheckCircleIcon } from "@chakra-ui/icons";
 
@@ -37,7 +37,6 @@ const FormLayout = ({ children }) => {
 
 export const Personal = () => {
   const [{ userPersonalInfo }, dispatch] = useDataLayerValue();
-  console.log(userPersonalInfo);
   const updateContext = (obj) => {
     dispatch({
       type: actionTypes.setUserPersonalInfo,
@@ -238,7 +237,8 @@ export const WorkHistory = () => {
       userWorkHistory: obj,
     });
   };
-  let userWorkHistoryObject = {
+  const [current, setCurrent] = useState(false);
+  const [workHistory, setWorkHistory] = useState({
     company: "",
     jobTitle: "",
     companyWebsite: "",
@@ -250,73 +250,53 @@ export const WorkHistory = () => {
     to: { month: "", year: "" },
     currentWork: false,
     description: "",
-  };
+  });
 
-  const [current, setCurrent] = useState(false);
-  /* handlers i think this could be optimized better in the future*/
-  const handleCompany = (event) => {
-    userWorkHistoryObject.company = event.target.value;
-    updateContext(userWorkHistoryObject);
-    console.log(userWorkHistoryObject);
-  };
+  function handleChange(event) {
+    const value = event.target.value;
+    event.target.name.split("-")[0] === "from"
+      ? setWorkHistory({
+          ...workHistory,
+          from: {
+            ...workHistory.from,
+            ...(event.target.name.split("-")[1] === "month" && { month: value }),
+            ...(event.target.name.split("-")[1] === "year" && { year: value }),
+          },
+        })
+      : event.target.name.split("-")[0] === "to"
+      ? setWorkHistory({
+          ...workHistory,
+          to: {
+            ...workHistory.to,
+            ...(event.target.name.split("-")[1] === "month" && { month: value }),
+            ...(event.target.name.split("-")[1] === "year" && { year: value }),
+          },
+        })
+      : setWorkHistory({ ...workHistory, [event.target.name]: value });
+  }
 
-  const handleJobTitle = (event) => {
-    userWorkHistoryObject.jobTitle = event.target.value;
-    updateContext(userWorkHistoryObject);
-    console.log(userWorkHistory);
-  };
-
-  const handleCompanyWebsite = (event) => {
-    userWorkHistoryObject.companyWebsite = event.target.value;
-    updateContext(userWorkHistoryObject);
-    console.log(userWorkHistoryObject);
-  };
-  const handleEmploymentType = (event) => {
-    userWorkHistoryObject.employmentType = event.target.value;
-    updateContext(userWorkHistoryObject);
-    console.log(userWorkHistoryObject);
-  };
-
-  const handleCountry = (event) => {
-    let userWorkHistoryObject = userWorkHistory;
-    userWorkHistoryObject.country = event.target.value;
-    updateContext(userWorkHistoryObject);
-    console.log(userWorkHistoryObject);
-  };
-
-  const handleCity = (event) => {
-    userWorkHistoryObject.city = event.target.value;
-    updateContext(userWorkHistoryObject);
-    console.log(userWorkHistoryObject);
-  };
-  const handleFromMonth = (event) => {
-    userWorkHistoryObject.city = event.target.value;
-    updateContext(userWorkHistoryObject);
-    console.log(userWorkHistoryObject);
-  };
-  const handleFromYear = (event) => {
-    userWorkHistoryObject.city = event.target.value;
-    updateContext(userWorkHistoryObject);
-    console.log(userWorkHistoryObject);
-  };
-  const handleToMonth = (event) => {
-    userWorkHistoryObject.city = event.target.value;
-    updateContext(userWorkHistoryObject);
-    console.log(userWorkHistoryObject);
-  };
-  const handleToYear = (event) => {
-    userWorkHistoryObject.city = event.target.value;
-    updateContext(userWorkHistoryObject);
-    console.log(userWorkHistoryObject);
-  };
-  const handleCheckbox = (event) => {
+  const handleCheckbox = () => {
     setCurrent(!current);
   };
 
-  const handleTech = () => {
-    userWorkHistoryObject.technologies = selectedItems;
-    updateContext(userWorkHistoryObject);
-  };
+  useEffect(() => {
+    current
+      ? (setWorkHistory({
+          ...workHistory,
+          currentWork: current,
+          to: {
+            month: "",
+            year: "",
+          },
+        }),
+        (document.getElementById("to-year").value = ""),
+        (document.getElementById("to-month").value = ""))
+      : setWorkHistory({ ...workHistory, currentWork: current });
+  }, [current]);
+
+  useEffect(() => {
+    updateContext(workHistory);
+  }, [workHistory]);
 
   // bad implementation on hard coded values
   const technologies = [
@@ -338,7 +318,11 @@ export const WorkHistory = () => {
   const handleSelectedItemsChange = (selectedItems) => {
     if (selectedItems) {
       setSelectedItems(selectedItems);
-      handleTech();
+      const selectedItemsWithoutLabel = selectedItems.map(({ label, ...keepAttrs }) => keepAttrs);
+      setWorkHistory({
+        ...workHistory,
+        technologies: selectedItemsWithoutLabel,
+      });
     }
   };
   return (
@@ -358,7 +342,7 @@ export const WorkHistory = () => {
           size="sm"
           w="full"
           rounded="md"
-          onChange={handleCompany}
+          onChange={handleChange}
         />
       </FormControl>
       {/*  Job Title */}
@@ -368,15 +352,15 @@ export const WorkHistory = () => {
         </FormLabel>
         <Input
           type="text"
-          name="job_title_company"
-          id="job_title_company"
+          name="jobTitle"
+          id="jobTitle"
           mt={1}
           focusBorderColor="purple.400"
           shadow="sm"
           size="sm"
           w="full"
           rounded="md"
-          onChange={handleJobTitle}
+          onChange={handleChange}
         />
       </FormControl>
       {/* Company Website */}
@@ -386,15 +370,15 @@ export const WorkHistory = () => {
         </FormLabel>
         <Input
           type="text"
-          name="company_website"
-          id="company_website"
+          name="companyWebsite"
+          id="companyWebsite"
           mt={1}
           focusBorderColor="purple.400"
           shadow="sm"
           size="sm"
           w="full"
           rounded="md"
-          onChange={handleCompanyWebsite}
+          onChange={handleChange}
         />
       </FormControl>
       {/* Employment Type */}
@@ -403,6 +387,7 @@ export const WorkHistory = () => {
           Employment Type
         </FormLabel>
         <Select
+          name="employmentType"
           colorScheme="purple"
           focusBorderColor="purple.400"
           shadow="sm"
@@ -410,7 +395,7 @@ export const WorkHistory = () => {
           w="full"
           rounded="md"
           placeholder="Select Employment Type"
-          onChange={handleEmploymentType}
+          onChange={handleChange}
         >
           <option value="Full-time">Full-time</option>
           <option value="Part-time">Part-time</option>
@@ -436,7 +421,7 @@ export const WorkHistory = () => {
           size="sm"
           w="full"
           rounded="md"
-          onChange={handleCountry}
+          onChange={handleChange}
         />
       </FormControl>
       {/* City */}
@@ -455,7 +440,7 @@ export const WorkHistory = () => {
           size="sm"
           w="full"
           rounded="md"
-          onChange={handleCity}
+          onChange={handleChange}
         />
       </FormControl>
       <FormControl as={GridItem} colSpan={[6, 3]}>
@@ -464,8 +449,7 @@ export const WorkHistory = () => {
         </FormLabel>
         <Input
           type="text"
-          name="frommonth"
-          id="frommonth"
+          name="from-month"
           placeholder="Month"
           mt={1}
           focusBorderColor="purple.400"
@@ -473,13 +457,12 @@ export const WorkHistory = () => {
           size="sm"
           w="full"
           rounded="md"
-          onChange={handleFromMonth}
+          onChange={handleChange}
         />
         <Input
           mt={6}
           type="text"
-          name="fromyear"
-          id="fromyear"
+          name="from-year"
           placeholder="Year"
           mt={1}
           focusBorderColor="purple.400"
@@ -487,7 +470,7 @@ export const WorkHistory = () => {
           size="sm"
           w="full"
           rounded="md"
-          onChange={handleFromYear}
+          onChange={handleChange}
         />
         <Checkbox
           mt={4}
@@ -511,61 +494,63 @@ export const WorkHistory = () => {
             <Input
               isDisabled
               type="text"
-              name="tomonth"
-              id="tomonth"
+              name="to-month"
+              id="to-month"
               placeholder="Month"
               mt={1}
               focusBorderColor="purple.400"
               shadow="sm"
               size="sm"
               w="full"
+              defaultValue=""
               rounded="md"
-              onChange={handleToMonth}
             />
             <Input
               isDisabled
               mt={6}
               type="text"
-              name="toyear"
-              id="toyear"
+              name="to-year"
+              id="to-year"
               placeholder="Year"
               mt={1}
               focusBorderColor="purple.400"
               shadow="sm"
               size="sm"
               w="full"
+              defaultValue=""
               rounded="md"
-              onChange={handleToYear}
             />
           </>
         ) : (
           <>
             <Input
               type="text"
-              name="tomonth"
-              id="tomonth"
+              name="to-month"
               placeholder="Month"
+              id="to-month"
               mt={1}
               focusBorderColor="purple.400"
               shadow="sm"
               size="sm"
               w="full"
+              defaultValue=""
               rounded="md"
-              onChange={handleToMonth}
+              onChange={handleChange}
             />
             <Input
               mt={6}
               type="text"
-              name="toyear"
-              id="toyear"
+              name="to-year"
+              id="to-year"
               placeholder="Year"
               mt={1}
               focusBorderColor="purple.400"
               shadow="sm"
               size="sm"
               w="full"
+              defaultValue=""
               rounded="md"
-              onChange={handleToYear}
+              onChange={handleChange}
             />
           </>
         )}
@@ -579,7 +564,28 @@ export const WorkHistory = () => {
           selectedItems={selectedItems}
           onSelectedItemsChange={(changes) => handleSelectedItemsChange(changes.selectedItems)}
           highlightItemBg="purple.500"
+          labelStyleProps={{ mb: "0px" }}
+          inputStyleProps={{ size: "sm", rounded: "md", shadow: "md", _focus: { borderColor: "purple.400" } }}
+          toggleButtonStyleProps={{ size: "sm" }}
+          tagStyleProps={{ mb: "2px!important", _focus: { borderColor: "purple.500", borderRadius: "sm" } }}
           listStyleProps={{ backgroundColor: "gray.800", textAlign: "left" }}
+        />
+      </FormControl>
+      <FormControl as={GridItem} colSpan={[6, 6]}>
+        <FormLabel htmlFor="description" fontSize="sm" fontWeight="md" color="gray.50">
+          Description
+        </FormLabel>
+        <Textarea
+          type="textarea"
+          name="description"
+          id="description"
+          mt={1}
+          focusBorderColor="purple.500"
+          shadow="sm"
+          size="sm"
+          w="full"
+          rounded="md"
+          onChange={handleChange}
         />
       </FormControl>
     </FormLayout>
