@@ -1,22 +1,23 @@
-import { DataLayer } from "../context/resumeContext";
-import reducer, { initialState } from "../context/reducer";
+import { useRouter } from "next/router";
 import { ChakraProvider } from "@chakra-ui/react";
 import { theme } from "../theme";
-import { useRouter } from "next/router";
+import { store } from "../app/store";
+import { Provider } from "react-redux";
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
 
   return (
-    <DataLayer reducer={reducer} initialState={initialState}>
-      {router.pathname == "/resumetemplate" ? (
+    <Provider store={store}>
+      <ChakraProvider theme={theme}>
+        <Component {...pageProps} />
+      </ChakraProvider>
+      {/* {router.pathname === "/resumetemplate" ? (
         <Component {...pageProps} />
       ) : (
-        <ChakraProvider theme={theme}>
-          <Component {...pageProps} />
-        </ChakraProvider>
-      )}
-    </DataLayer>
+        
+      )} */}
+    </Provider>
   );
 }
 export default MyApp;

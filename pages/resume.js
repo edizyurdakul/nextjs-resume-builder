@@ -21,8 +21,8 @@ import { Step, Steps, useSteps } from "chakra-ui-steps";
 import { Personal, Summary, WorkHistory } from "../components/Form";
 import { ResumeTemplate } from "../components/Resume";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import { useDataLayerValue } from "../context/resumeContext";
 import { CheckCircleIcon } from "@chakra-ui/icons";
+import { useSelector } from "react-redux";
 
 const steps = [
   { label: "Personal Info", formComponent: <Personal /> },
@@ -35,14 +35,16 @@ const steps = [
 ];
 
 export default function resume() {
-  const [{ userPersonalInfo, userSummary }, dispatch] = useDataLayerValue();
-
   const toast = useToast();
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const onClose = () => setIsOpen(false);
   const cancelRef = React.useRef();
   const { nextStep, prevStep, reset, activeStep, setStep } = useSteps({
     initialStep: 0,
+  });
+
+  const resume = useSelector((state) => {
+    return state.resume.value;
   });
 
   return (
@@ -67,6 +69,7 @@ export default function resume() {
         >
           Go Back
         </Button>
+
         <chakra.h1
           mb={12}
           fontSize={{ base: "4xl", md: "6xl" }}
