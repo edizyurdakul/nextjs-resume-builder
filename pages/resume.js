@@ -69,7 +69,6 @@ export default function resume() {
         >
           Go Back
         </Button>
-
         <chakra.h1
           mb={12}
           fontSize={{ base: "4xl", md: "6xl" }}
