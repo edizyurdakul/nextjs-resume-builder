@@ -6,9 +6,6 @@ import { FormControl, FormLabel, Textarea, GridItem } from "@chakra-ui/react";
 
 function Summary() {
   const dispatch = useDispatch();
-  const data = useSelector((state) => {
-    return state.resume.value;
-  });
 
   function handleChange(event) {
     const value = event.target.value;
