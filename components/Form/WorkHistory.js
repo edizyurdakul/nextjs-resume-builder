@@ -1,51 +1,38 @@
-import { useEffect, useState } from "react";
+import { useSelector, useState } from "react";
 
 import { FormControl, FormLabel, Input, Select, GridItem } from "@chakra-ui/react";
 import { CUIAutoComplete } from "chakra-ui-autocomplete";
 
 function WorkHistory() {
-  const [{ userWorkHistory }, dispatch] = useDataLayerValue();
-
-  const [current, setCurrent] = useState(false);
-  const [workHistory, setWorkHistory] = useState({
-    company: "",
-    jobTitle: "",
-    companyWebsite: "",
-    employmentType: "",
-    country: "",
-    city: "",
-    technologies: [],
-    from: { month: "", year: "" },
-    to: { month: "", year: "" },
-    currentWork: false,
-    description: "",
+  const resume = useSelector((state) => {
+    return state.resume.value.workHistory;
   });
 
   function handleChange(event) {
     const value = event.target.value;
-    event.target.name.split("-")[0] === "from"
-      ? setWorkHistory({
-          ...workHistory,
-          from: {
-            ...workHistory.from,
-            ...(event.target.name.split("-")[1] === "month" && { month: value }),
-            ...(event.target.name.split("-")[1] === "year" && { year: value }),
-          },
-        })
-      : event.target.name.split("-")[0] === "to"
-      ? setWorkHistory({
-          ...workHistory,
-          to: {
-            ...workHistory.to,
-            ...(event.target.name.split("-")[1] === "month" && { month: value }),
-            ...(event.target.name.split("-")[1] === "year" && { year: value }),
-          },
-        })
-      : setWorkHistory({ ...workHistory, [event.target.name]: value });
+    // event.target.name.split("-")[0] === "from"
+    //   ? setWorkHistory({
+    //       ...workHistory,
+    //       from: {
+    //         ...workHistory.from,
+    //         ...(event.target.name.split("-")[1] === "month" && { month: value }),
+    //         ...(event.target.name.split("-")[1] === "year" && { year: value }),
+    //       },
+    //     })
+    //   : event.target.name.split("-")[0] === "to"
+    //   ? setWorkHistory({
+    //       ...workHistory,
+    //       to: {
+    //         ...workHistory.to,
+    //         ...(event.target.name.split("-")[1] === "month" && { month: value }),
+    //         ...(event.target.name.split("-")[1] === "year" && { year: value }),
+    //       },
+    //     })
+    //   : setWorkHistory({ ...workHistory, [event.target.name]: value });
   }
 
   const handleCheckbox = () => {
-    setCurrent(!current);
+    // setCurrent(!current);
   };
 
   // bad implementation on hard coded values
@@ -69,10 +56,10 @@ function WorkHistory() {
     if (selectedItems) {
       setSelectedItems(selectedItems);
       const selectedItemsWithoutLabel = selectedItems.map(({ label, ...keepAttrs }) => keepAttrs);
-      setWorkHistory({
-        ...workHistory,
-        technologies: selectedItemsWithoutLabel,
-      });
+      // setWorkHistory({
+      //   ...workHistory,
+      //   technologies: selectedItemsWithoutLabel,
+      // });
     }
   };
   return (

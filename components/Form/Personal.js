@@ -1,12 +1,19 @@
-import { useEffect, useState } from "react";
-
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { addPersonal } from "../../features/resumeSlice";
 import FormLayout from "./Layout";
 import { FormControl, FormLabel, Input, GridItem } from "@chakra-ui/react";
 
 function Personal() {
+  const dispatch = useDispatch();
+  const data = useSelector((state) => {
+    return state.resume.value;
+  });
   function handleChange(event) {
     const value = event.target.value;
-    setPersonalInfo({ ...personalInfo, [event.target.name]: value });
+    const oldObject = data.personal;
+    const newObject = { ...oldObject, [event.target.name]: value };
+    dispatch(addPersonal(newObject));
   }
 
   return (

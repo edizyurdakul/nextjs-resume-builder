@@ -1,12 +1,18 @@
-import { useEffect, useState } from "react";
-
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { addSummary } from "../../features/resumeSlice";
 import FormLayout from "./Layout";
 import { FormControl, FormLabel, Textarea, GridItem } from "@chakra-ui/react";
 
 function Summary() {
+  const dispatch = useDispatch();
+  const data = useSelector((state) => {
+    return state.resume.value;
+  });
+
   function handleChange(event) {
     const value = event.target.value;
-    setSummary(value);
+    dispatch(addSummary(value));
   }
 
   return (
