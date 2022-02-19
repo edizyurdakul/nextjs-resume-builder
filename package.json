@@ -1,29 +1,23 @@
 {
-  "name": "next-resume",
-  "version": "1.0.0",
-  "description": "next js web application to build your resume",
-  "main": "index.js",
+  "name": "create-next-app-typescript",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
-  "keywords": [],
-  "author": "Ediz Yurdakul",
-  "license": "MIT",
   "dependencies": {
-    "@chakra-ui/react": "^1.7.2",
-    "@emotion/react": "^11.7.0",
-    "@emotion/styled": "^11.6.0",
-    "@react-pdf/renderer": "^2.0.21",
-    "@reduxjs/toolkit": "^1.7.1",
-    "chakra-ui-autocomplete": "^1.4.5",
-    "chakra-ui-steps": "^1.5.0",
-    "framer-motion": "^4.1.17",
-    "next": "^12.0.7",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-redux": "^7.2.6"
+    "next": "12.1.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "17.0.18",
+    "@types/react": "17.0.39",
+    "eslint": "8.9.0",
+    "eslint-config-next": "12.1.0",
+    "typescript": "4.5.5"
   }
 }
