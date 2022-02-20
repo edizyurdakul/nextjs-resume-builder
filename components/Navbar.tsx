@@ -16,7 +16,12 @@ function Navbar() {
   return (
     <Box component={"header"} className={classes.flex}>
       <Text size={"xl"}>
-        <Text color={"violet"} inherit component={"span"}>
+        <Text
+          sx={{ fontWeight: "bold" }}
+          color={"violet"}
+          inherit
+          component={"span"}
+        >
           NextJS{" "}
         </Text>
         Resume Builder

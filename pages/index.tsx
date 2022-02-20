@@ -1,7 +1,8 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { Box, Title, Text, Center, Image, Button } from "@mantine/core";
+import NextImage from "next/image";
+import { Box, Title, Text, Center, Button } from "@mantine/core";
 import Navbar from "../components/Navbar";
 
 const Home: NextPage = () => {
@@ -30,8 +31,16 @@ const Home: NextPage = () => {
               Completely free to use, create and download Clean ATS-friendly
               resume format to ensure you get seen by recruiters
             </Text>
-            <div>
-              <Image src="https://kutty.netlify.app/hero.jpg" alt={"hero"} />
+            <div
+              style={{ position: "relative", height: "60vh", width: "100%" }}
+            >
+              <NextImage
+                src="https://kutty.netlify.app/hero.jpg"
+                alt={"hero"}
+                layout={"fill"}
+                objectFit={"contain"}
+                priority
+              />
             </div>
             <Center mt={16}>
               <Link href="/create-resume" passHref>
