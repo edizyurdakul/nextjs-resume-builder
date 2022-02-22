@@ -1,5 +1,4 @@
 import { AppProps } from "next/app";
-import Head from "next/head";
 import { MantineProvider } from "@mantine/core";
 import Layout from "../components/Layout";
 
@@ -8,14 +7,6 @@ export default function App(props: AppProps) {
 
   return (
     <>
-      <Head>
-        <title>Page title</title>
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width"
-        />
-      </Head>
-
       <MantineProvider
         withGlobalStyles
         withNormalizeCSS
@@ -36,6 +27,43 @@ export default function App(props: AppProps) {
               "#171717",
             ],
           },
+        }}
+        styles={{
+          Textarea: (theme) => ({
+            input: {
+              "&:focus, &:focus-within": {
+                borderColor: `${theme.colors.violet[5]}!important`,
+              },
+            },
+          }),
+          TextInput: (theme) => ({
+            input: {
+              "&:focus, &:focus-within": {
+                borderColor: `${theme.colors.violet[5]}!important`,
+              },
+            },
+          }),
+          Select: (theme) => ({
+            input: {
+              "&:focus, &:focus-within": {
+                borderColor: `${theme.colors.violet[5]}!important`,
+              },
+            },
+          }),
+          MultiSelect: (theme) => ({
+            input: {
+              "&:focus, &:focus-within": {
+                borderColor: `${theme.colors.violet[5]}!important`,
+              },
+            },
+          }),
+          DatePicker: (theme) => ({
+            input: {
+              "&:focus, &:focus-within": {
+                borderColor: `${theme.colors.violet[5]}!important`,
+              },
+            },
+          }),
         }}
       >
         <Layout>
