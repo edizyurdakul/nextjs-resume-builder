@@ -56,48 +56,65 @@ const CreateResume: NextPage = () => {
   };
 
   // Handling Work history
-  const [workHistory, setWorkHistory] = useState<Array<object>>([]);
-  const [workCount, setWorkCount] = useState(0);
+
+  const [workHistory, setWorkHistory] = useState<
+    Array<{
+      company: string;
+      job_title: string;
+      company_website: string;
+      employment_type: string;
+      country: string;
+      city: string;
+      from: Date;
+      to: Date;
+      current: boolean;
+      tech: Array<string>;
+      desc: string;
+    }>
+  >([
+    {
+      company: "",
+      job_title: "",
+      company_website: "",
+      employment_type: "",
+      country: "",
+      city: "",
+      from: new Date(),
+      to: new Date(),
+      current: false,
+      tech: [],
+      desc: "",
+    },
+  ]);
 
   const addWorkHistory = () => {
-    setWorkCount(workCount + 1);
+    setWorkHistory([
+      ...workHistory,
+      {
+        company: "",
+        job_title: "",
+        company_website: "",
+        employment_type: "",
+        country: "",
+        city: "",
+        from: new Date(),
+        to: new Date(),
+        current: false,
+        tech: [],
+        desc: "",
+      },
+    ]);
   };
 
-  const deleteWorkHistory = () => [
-    (index: number) => {
-      let newArr = [...workHistory]; // copying the old work history array
-      delete newArr[index];
-      setWorkHistory(newArr);
-    },
-  ];
+  const removeWorkHistory = (i: number) => {
+    let newWorkHistory = [...workHistory];
+    newWorkHistory.splice(i, 1);
+    setWorkHistory(newWorkHistory);
+  };
 
   useEffect(() => {
-    if (workCount > 0) {
-      setWorkHistory((prev) => [
-        ...prev,
-        {
-          id: workCount,
-          company: "",
-          job_title: "",
-          company_website: "",
-          employment_type: "",
-          country: "",
-          city: "",
-          from: "",
-          to: "",
-          current: false,
-          tech: [],
-          desc: "",
-        },
-      ]);
-    }
-  }, [workCount]);
-
-  const handleWorkHistory =
-    (index: number) => (e: ChangeEvent<HTMLInputElement>) => {
-      let newArr = [...workHistory]; // copying the old datas array
-      newArr[index] = { ...newArr, [e.target.id]: e.target.value }; // replace e.target.value with whatever you want to change it to
-    };
+    console.log(workHistory);
+  }, [workHistory]);
 
   return (
     <>
@@ -167,6 +184,7 @@ const CreateResume: NextPage = () => {
                 </Grid.Col>
                 <Grid.Col xs={4} sm={4}>
                   <TextInput
+                    id="github"
                     label="GitHub"
                     placeholder="GitHub"
                     onChange={handlePersonal}
@@ -175,6 +193,7 @@ const CreateResume: NextPage = () => {
                 </Grid.Col>
                 <Grid.Col xs={4} sm={4}>
                   <TextInput
+                    id="linkedin"
                     label="LinkedIn"
                     placeholder="LinkedIn"
                     onChange={handlePersonal}
@@ -227,125 +246,207 @@ const CreateResume: NextPage = () => {
                   Add Work History
                 </Button>
               </Box>
-
-              <Grid>
-                <Grid.Col xs={8} sm={8}>
-                  <TextInput
-                    id="company"
-                    // value={work.company}
-                    label="Company"
-                    placeholder="Company name"
-                    // onChange={handleWorkHistory(index)}
-                  />
-                </Grid.Col>
-                <Grid.Col xs={4} sm={4}>
-                  <TextInput
-                    id="job_title"
-                    // value={work.job_title}
-                    label="Job Title"
-                    placeholder="Job Title"
-                  />
-                </Grid.Col>
-                <Grid.Col xs={12} sm={8}>
-                  <TextInput
-                    id="company_website"
-                    // value={work.company_website}
-                    label="Company Website"
-                    placeholder="Company website"
-                  />
-                </Grid.Col>
-                <Grid.Col xs={4} sm={4}>
-                  <Select
-                    // value={work.employment_type}
-                    label="Employment Type"
-                    placeholder="Select employment type"
-                    data={[
-                      { value: "full-time", label: "Full-time" },
-                      { value: "part-time", label: "Part-time" },
-                      { value: "contract", label: "Contract" },
-                      { value: "freelance", label: "Freelance" },
-                      { value: "self-employed", label: "Self-employed" },
-                      { value: "internship", label: "Internship" },
-                    ]}
-                  />
-                </Grid.Col>
-                <Grid.Col xs={4} sm={6}>
-                  <TextInput
-                    // value={work.country}
-                    label="Country"
-                    placeholder="Country"
-                  />
-                </Grid.Col>
-                <Grid.Col xs={4} sm={6}>
-                  <TextInput
-                    // value={work.city}
-                    label="City"
-                    placeholder="City"
-                  />
-                </Grid.Col>
-                <Grid.Col xs={4} sm={6}>
-                  <DatePicker
-                    // value={work.from}
-                    placeholder="Pick date"
-                    label="From"
-                  />
-                </Grid.Col>
-                <Grid.Col xs={4} sm={6}>
-                  <DatePicker
-                    // value={work.to}
-                    placeholder="Pick date"
-                    label="To"
-                  />
-                </Grid.Col>
-                <Grid.Col xs={4} sm={6}>
-                  {/* Todo checkbox enable To date becomes disabled */}
-                  <Checkbox
-                    // value={work.current}
-                    color={"violet"}
-                    label="I currently work here"
-                  />
-                </Grid.Col>
-                <Grid.Col xs={12} sm={12}>
-                  <MultiSelect
-                    // value={work.tech}
-                    color={"violet"}
-                    searchable
-                    nothingFound="Nothing found"
-                    clearButtonLabel="Clear selection"
-                    clearable
-                    data={[
-                      { value: "react", label: "React" },
-                      { value: "ng", label: "Angular" },
-                      { value: "svelte", label: "Svelte" },
-                      { value: "vue", label: "Vue" },
-                      { value: "riot", label: "Riot" },
-                      { value: "next", label: "Next.js" },
-                      { value: "blitz", label: "Blitz.js" },
-                    ]}
-                    label="Technologies"
-                    aria-label="Select technologies"
-                  />
-                </Grid.Col>
-                <Grid.Col xs={12} sm={12}>
-                  <Textarea
-                    // value={work.desc}
-                    label="Description"
-                    placeholder="Description"
-                  />
-                </Grid.Col>
-                <Grid.Col>
-                  <Button
-                    color={"red"}
-                    size="xs"
-                    variant="subtle"
-                    // onClick={(index: any) => {
-                    //   deleteWorkHistory(index);
-                    // }}
-                  >
-                    Delete Work History
-                  </Button>
-                </Grid.Col>
-              </Grid>
+              {}
+              {workHistory.map((work, index) => {
+                return (
+                  <Grid key={index}>
+                    <Grid.Col xs={8} sm={8}>
+                      <TextInput
+                        name="company"
+                        value={work.company}
+                        onChange={(e) => {
+                          const newWorkHistory = [...workHistory];
+                          newWorkHistory[index]["company"] = e.target.value;
+                          setWorkHistory(newWorkHistory);
+                        }}
+                        label="Company"
+                        placeholder="Company name"
+                        // onChange={handleWorkHistory(index)}
+                      />
+                    </Grid.Col>
+                    <Grid.Col xs={4} sm={4}>
+                      <TextInput
+                        name="job_title"
+                        value={work.job_title}
+                        onChange={(e) => {
+                          const newWorkHistory = [...workHistory];
+                          newWorkHistory[index]["job_title"] = e.target.value;
+                          setWorkHistory(newWorkHistory);
+                        }}
+                        label="Job Title"
+                        placeholder="Job Title"
+                      />
+                    </Grid.Col>
+                    <Grid.Col xs={12} sm={8}>
+                      <TextInput
+                        name="company_website"
+                        value={work.company_website}
+                        onChange={(e) => {
+                          const newWorkHistory = [...workHistory];
+                          newWorkHistory[index]["company_website"] =
+                            e.target.value;
+                          setWorkHistory(newWorkHistory);
+                        }}
+                        label="Company Website"
+                        placeholder="Company website"
+                      />
+                    </Grid.Col>
+                    <Grid.Col xs={4} sm={4}>
+                      <Select
+                        name="employment_type"
+                        value={work.employment_type}
+                        onChange={(e: string) => {
+                          const newWorkHistory = [...workHistory];
+                          newWorkHistory[index]["employment_type"] = e;
+                          setWorkHistory(newWorkHistory);
+                        }}
+                        label="Employment Type"
+                        placeholder="Select employment type"
+                        data={[
+                          { value: "full-time", label: "Full-time" },
+                          { value: "part-time", label: "Part-time" },
+                          { value: "contract", label: "Contract" },
+                          { value: "freelance", label: "Freelance" },
+                          { value: "self-employed", label: "Self-employed" },
+                          { value: "internship", label: "Internship" },
+                        ]}
+                      />
+                    </Grid.Col>
+                    <Grid.Col xs={4} sm={6}>
+                      <TextInput
+                        name="country"
+                        value={work.country}
+                        onChange={(e) => {
+                          const newWorkHistory = [...workHistory];
+                          newWorkHistory[index]["country"] = e.target.value;
+                          setWorkHistory(newWorkHistory);
+                        }}
+                        label="Country"
+                        placeholder="Country"
+                      />
+                    </Grid.Col>
+                    <Grid.Col xs={4} sm={6}>
+                      <TextInput
+                        name="city"
+                        value={work.city}
+                        onChange={(e) => {
+                          const newWorkHistory = [...workHistory];
+                          newWorkHistory[index]["city"] = e.target.value;
+                          setWorkHistory(newWorkHistory);
+                        }}
+                        label="City"
+                        placeholder="City"
+                      />
+                    </Grid.Col>
+                    <Grid.Col xs={4} sm={6}>
+                      <DatePicker
+                        name="from"
+                        value={work.from}
+                        onChange={(e: Date) => {
+                          const newWorkHistory = [...workHistory];
+                          newWorkHistory[index]["from"] = e;
+                          setWorkHistory(newWorkHistory);
+                        }}
+                        placeholder="Pick date"
+                        label="From"
+                      />
+                    </Grid.Col>
+                    <Grid.Col xs={4} sm={6}>
+                      {work.current ? (
+                        <DatePicker
+                          name="to"
+                          value={work.to}
+                          disabled
+                          onChange={(e: Date) => {
+                            const newWorkHistory = [...workHistory];
+                            newWorkHistory[index]["to"] = e;
+                            setWorkHistory(newWorkHistory);
+                          }}
+                          placeholder="Pick date"
+                          label="To"
+                        />
+                      ) : (
+                        <DatePicker
+                          name="to"
+                          {...(work.current ? "disabled" : null)}
+                          value={work.to}
+                          onChange={(e: Date) => {
+                            const newWorkHistory = [...workHistory];
+                            newWorkHistory[index]["to"] = e;
+                            setWorkHistory(newWorkHistory);
+                          }}
+                          placeholder="Pick date"
+                          label="To"
+                        />
+                      )}
+                    </Grid.Col>
+                    <Grid.Col xs={4} sm={6}>
+                      {/* Todo checkbox enable To date becomes disabled */}
+                      <Checkbox
+                        name="current"
+                        checked={work.current}
+                        onChange={(e) => {
+                          const newWorkHistory = [...workHistory];
+                          newWorkHistory[index]["current"] = e.target.checked;
+                          setWorkHistory(newWorkHistory);
+                        }}
+                        color={"violet"}
+                        label="I currently work here"
+                      />
+                    </Grid.Col>
+                    <Grid.Col xs={12} sm={12}>
+                      <MultiSelect
+                        value={work.tech}
+                        onChange={(e) => {
+                          const newWorkHistory = [...workHistory];
+                          newWorkHistory[index]["tech"] = e;
+                          setWorkHistory(newWorkHistory);
+                        }}
+                        color={"violet"}
+                        searchable
+                        nothingFound="Nothing found"
+                        clearButtonLabel="Clear selection"
+                        clearable
+                        data={[
+                          { value: "react", label: "React" },
+                          { value: "ng", label: "Angular" },
+                          { value: "svelte", label: "Svelte" },
+                          { value: "vue", label: "Vue" },
+                          { value: "riot", label: "Riot" },
+                          { value: "next", label: "Next.js" },
+                          { value: "blitz", label: "Blitz.js" },
+                        ]}
+                        label="Technologies"
+                        aria-label="Select technologies"
+                      />
+                    </Grid.Col>
+                    <Grid.Col xs={12} sm={12}>
+                      <Textarea
+                        value={work.desc}
+                        onChange={(e) => {
+                          const newWorkHistory = [...workHistory];
+                          newWorkHistory[index]["desc"] = e.target.value;
+                          setWorkHistory(newWorkHistory);
+                        }}
+                        label="Description"
+                        placeholder="Description"
+                      />
+                    </Grid.Col>
+                    <Grid.Col>
+                      <Button
+                        color={"red"}
+                        size="xs"
+                        variant="subtle"
+                        onClick={(index: any) => {
+                          removeWorkHistory(index);
+                        }}
+                      >
+                        Delete Work History
+                      </Button>
+                    </Grid.Col>
+                  </Grid>
+                );
+              })}
             </Stepper.Step>
             <Stepper.Step
               label="Skills"
