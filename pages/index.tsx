@@ -31,17 +31,22 @@ const Home: NextPage = () => {
               Completely free to use, create and download Clean ATS-friendly
               resume format to ensure you get seen by recruiters
             </Text>
-            <div
-              style={{ position: "relative", height: "60vh", width: "100%" }}
+            <Box
+              style={{
+                position: "relative",
+                height: "60vh",
+                width: "100%",
+                boxShadow: "rgba(0, 0, 0, 0.15) 0px 5px 5px",
+              }}
             >
               <NextImage
-                src="https://kutty.netlify.app/hero.jpg"
+                src="/hero_image.png"
                 alt={"hero"}
                 layout={"fill"}
                 objectFit={"contain"}
                 priority
               />
-            </div>
+            </Box>
             <Center mt={16}>
               <Link href="/create-resume" passHref>
                 <Button component="a" color={"violet"}>
